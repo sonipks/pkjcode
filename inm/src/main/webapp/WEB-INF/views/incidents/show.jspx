@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_pks_inm_domain_Incident" object="${incident}" path="/incidents" z="9vCz3LTBQ8NbsUkNlhBelaEukEk=">
+        <field:display field="incidentID" id="s_com_pks_inm_domain_Incident_incidentID" object="${incident}" z="tS4uASLVb+7MOx4foFbs/gl1BJc="/>
+        <field:display date="true" dateTimePattern="${incident_reporteddate_date_format}" field="reportedDate" id="s_com_pks_inm_domain_Incident_reportedDate" object="${incident}" z="sX51W0vQiVbJBWtX9V99sDzsDcQ="/>
+        <field:display field="summary" id="s_com_pks_inm_domain_Incident_summary" object="${incident}" z="PSIcpay8JaDR4eAD2utvN0JjQ5o="/>
+        <field:display field="detailedDesc" id="s_com_pks_inm_domain_Incident_detailedDesc" object="${incident}" z="PGCGsTFkyyJYSTVlc0hXw4LbgXk="/>
+        <field:display field="workDetail" id="s_com_pks_inm_domain_Incident_workDetail" object="${incident}" z="pKWpyzGFn9QKiKDODeMwtt6A/bQ="/>
+        <field:display field="product" id="s_com_pks_inm_domain_Incident_product" object="${incident}" z="x+hMg1wSn0TFNaGGwQCG9mu6Cjk="/>
+        <field:display field="priority" id="s_com_pks_inm_domain_Incident_priority" object="${incident}" z="Y0g0gEL2fS15wj4+EY2HBtNm8bY="/>
+        <field:display field="urgency" id="s_com_pks_inm_domain_Incident_urgency" object="${incident}" z="3kwQkVZQ2voFeJDADxYz+zNJLyI="/>
+        <field:display field="impact" id="s_com_pks_inm_domain_Incident_impact" object="${incident}" z="BKfM3IzFoWjodI4XXDjRmqubLYA="/>
+        <field:display field="assignee" id="s_com_pks_inm_domain_Incident_assignee" object="${incident}" z="Qsu+PzaFSzEwQzOQ00VvdPmunyU="/>
+        <field:display date="true" dateTimePattern="${incident_resolveddate_date_format}" field="resolvedDate" id="s_com_pks_inm_domain_Incident_resolvedDate" object="${incident}" z="NzQ7S0cuO2fH9E3ojAjERNY7oQc="/>
+        <field:display field="resolution" id="s_com_pks_inm_domain_Incident_resolution" object="${incident}" z="8xT5vI+kgtVu/rMisjftIM3ZWqk="/>
+        <field:display field="status" id="s_com_pks_inm_domain_Incident_status" object="${incident}" z="m8uMkIXPBKGTnuolOGAwuIZknmM="/>
+    </page:show>
+</div>

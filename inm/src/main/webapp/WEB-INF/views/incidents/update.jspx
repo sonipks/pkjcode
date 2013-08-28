@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_com_pks_inm_domain_Incident" modelAttribute="incident" path="/incidents" versionField="Version" z="CbmsrakbXVG5h0uerxeNdzcHW6M=">
+        <field:input field="incidentID" id="c_com_pks_inm_domain_Incident_incidentID" z="4CS9s2bK897I7AXNzUIxQLIOAdE="/>
+        <field:datetime dateTimePattern="${incident_reporteddate_date_format}" field="reportedDate" id="c_com_pks_inm_domain_Incident_reportedDate" required="true" z="ib6IIlPJXbfhEw0r6WGu4niaNXs="/>
+        <field:input field="summary" id="c_com_pks_inm_domain_Incident_summary" required="true" z="p1PkNZ6uRHXXy9YlL5qxbm1tFUI="/>
+        <field:input field="detailedDesc" id="c_com_pks_inm_domain_Incident_detailedDesc" z="I+9nr6DV4NARWXqzZlTf0AY5ogY="/>
+        <field:input field="workDetail" id="c_com_pks_inm_domain_Incident_workDetail" z="HNilRXiduFDy5UButE9dob0Mz3g="/>
+        <field:select field="product" id="c_com_pks_inm_domain_Incident_product" itemValue="id" items="${products}" path="/products" z="ZA8Xil/qXJnAs5umc24mEgmMVRQ="/>
+        <field:select field="priority" id="c_com_pks_inm_domain_Incident_priority" itemValue="id" items="${statuses}" path="/statuses" required="true" z="X9g/rpQEb6APm8IZ45eIFvbsdd4="/>
+        <field:select field="urgency" id="c_com_pks_inm_domain_Incident_urgency" itemValue="id" items="${statuses}" path="/statuses" z="VIavGvQOo0bh+a4LyvyU3iUt30c="/>
+        <field:select field="impact" id="c_com_pks_inm_domain_Incident_impact" itemValue="id" items="${statuses}" path="/statuses" z="LaODXCfZ8FC+4BPlchGWNA9EfuI="/>
+        <field:select field="assignee" id="c_com_pks_inm_domain_Incident_assignee" itemValue="id" items="${assignees}" path="/assignees" z="tLllca1ggmUFUy/bFSx9XQVFhvg="/>
+        <field:datetime dateTimePattern="${incident_resolveddate_date_format}" field="resolvedDate" id="c_com_pks_inm_domain_Incident_resolvedDate" z="s+zoLT4MDDvSbfR6e6Vpi4STcD4="/>
+        <field:input field="resolution" id="c_com_pks_inm_domain_Incident_resolution" z="IghJ9L96mcp1T9qcb7Msb3jXgN0="/>
+        <field:select field="status" id="c_com_pks_inm_domain_Incident_status" items="${incstatuses}" path="incstatuses" z="70UEQwtin+2U92j8HeFCT8VQNM4="/>
+    </form:update>
+</div>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="incidents/list">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/list.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/show">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/show.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/create">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/create.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/update">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/update.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateIsNull">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateIsNull.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByAssignee">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByAssignee.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByIncidentIDEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByIncidentIDEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByIncidentIDIsNotNull">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByIncidentIDIsNotNull.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByIncidentIDIsNull">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByIncidentIDIsNull.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByIncidentIDLike">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByIncidentIDLike.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByPriority">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByPriority.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByReportedDateBetween">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByReportedDateBetween.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByReportedDateEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByReportedDateEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByReportedDateGreaterThanEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByReportedDateGreaterThanEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolutionIsNull">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolutionIsNull.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolutionLike">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolutionLike.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateBetween">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateBetween.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateGreaterThanEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateGreaterThanEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateIsNotNull">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateIsNotNull.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByResolvedDateLessThanEquals">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByResolvedDateLessThanEquals.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByStatus">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByStatus.jspx"/>
+    </definition>
+<definition extends="default" name="incidents/findIncidentsByProduct">
+        <put-attribute name="body" value="/WEB-INF/views/incidents/findIncidentsByProduct.jspx"/>
+    </definition>
+</tiles-definitions>

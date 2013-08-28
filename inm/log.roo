@@ -1,0 +1,71 @@
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-04-27 18:57:12
+project --topLevelPackage com.pks.inm
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --userName xyzUser --password xyzPass
+entity jpa --class ~.domain.Product
+field string --fieldName name --notNull --comment ProductName
+entity jpa --class ~.domain.Assignee
+field string --fieldName username --notNull --sizeMin 4 --sizeMax 9
+field string --fieldName password --sizeMin 4 --sizeMax 20 --notNull 
+enum type --class ~.domain.Roles
+enum constant --name Admin
+enum constant --name Assignee
+enum constant --name Customer
+focus --class ~.domain.Assignee
+field enum --fieldName assignedRole --type ~.domain.Roles
+entity jpa --class ~.domain.Status
+field string --fieldName status
+entity jpa --class ~.domain.Incident
+field string --fieldName incidentID
+field date --fieldName reportedDate --type java.util.Date --notNull --dateFormat MEDIUM
+field string --fieldName summary --notNull 
+field string --fieldName detailedDesc
+field string --fieldName workDetail
+field reference --fieldName product --type ~.domain.Product
+field reference --fieldName priority --type ~.domain.Status --notNull 
+field reference --fieldName urgency --type ~.domain.Status
+field reference --fieldName impact --type ~.domain.Status
+field reference --fieldName assignee --type ~.domain.Assignee
+field date --fieldName resolvedDate --type java.util.Date --dateFormat MEDIUM 
+field string --fieldName resolution
+enum type --class ~.domain.IncStatus
+enum constant --name isNew
+enum constant --name Assigned
+enum constant --name InProgress
+enum constant --name Pending
+enum constant --name Resolved
+enum constant --name Closed
+enum constant --name Cancelled
+focus --class ~.domain.Incident
+field enum --fieldName status --type ~.domain.IncStatus
+test integration 
+logging setup --level INFO
+logging setup --level INFO 
+web mvc setup
+web mvc all --package ~.web
+finder list --class ~.domain.Incident
+finder add --finderName findIncidentsByResolvedDateIsNull
+finder add --finderName findIncidentsByAssignee
+finder add --finderName findIncidentsByIncidentIDEquals
+finder add --finderName findIncidentsByIncidentIDIsNotNull
+finder add --finderName findIncidentsByIncidentIDIsNull
+finder add --finderName findIncidentsByIncidentIDLike
+finder add --finderName findIncidentsByPriority
+finder add --finderName findIncidentsByReportedDateBetween
+finder add --finderName findIncidentsByReportedDateEquals
+finder add --finderName findIncidentsByReportedDateGreaterThanEquals
+finder add --finderName findIncidentsByResolutionIsNull
+finder add --finderName findIncidentsByResolutionLike
+finder add --finderName findIncidentsByResolvedDateBetween
+finder add --finderName findIncidentsByResolvedDateEquals
+finder add --finderName findIncidentsByResolvedDateGreaterThanEquals
+finder add --finderName findIncidentsByResolvedDateIsNotNull
+finder add --finderName findIncidentsByResolvedDateIsNull
+finder add --finderName findIncidentsByResolvedDateLessThanEquals
+finder add --finderName findIncidentsByStatus
+finder add --finderName findIncidentsByProduct
+web mvc finder all
+web mvc language --code en
+web mvc language --code es
+selenium test --controller ~.web.StatusController
+selenium test --controller ~.web.ProductController
+selenium test --controller ~.web.IncidentController

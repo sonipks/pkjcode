@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+<link href="http://localhost:8080/" rel="selenium.base"/>
+<title>Selenium test for IncidentController</title>
+</head>
+<body>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <td colspan="3" rowspan="1">Selenium test for IncidentController</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+                    <td>open</td>
+                    <td>http://localhost:8080/inm/incidents?form&amp;lang=en_IN</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_incidentID_id</td>
+                    <td>someIncidentID1</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_reportedDate_id</td>
+                    <td>5 May, 2013</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_summary_id</td>
+                    <td>someSummary1</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_detailedDesc_id</td>
+                    <td>someDetailedDesc1</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_workDetail_id</td>
+                    <td>someWorkDetail1</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_resolvedDate_id</td>
+                    <td>5 May, 2013</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>_resolution_id</td>
+                    <td>someResolution1</td>
+                </tr>
+                <tr>
+                    <td>clickAndWait</td>
+                    <td>//input[@id = 'proceed']</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_incidentID_incidentID_id</td>
+                    <td>someIncidentID1</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_reportedDate_reportedDate_id</td>
+                    <td>5 May, 2013</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_summary_summary_id</td>
+                    <td>someSummary1</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_detailedDesc_detailedDesc_id</td>
+                    <td>someDetailedDesc1</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_workDetail_workDetail_id</td>
+                    <td>someWorkDetail1</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_resolvedDate_resolvedDate_id</td>
+                    <td>5 May, 2013</td>
+                </tr>
+                <tr>
+                    <td>verifyText</td>
+                    <td>_s_com_pks_inm_domain_Incident_resolution_resolution_id</td>
+                    <td>someResolution1</td>
+                </tr>
+            </tbody>
+    </table>
+</body>
+</html>

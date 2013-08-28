@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_product" z="vJ6efqiSxFssuvqFTsXpvZ3AvA8=">
+            <menu:item id="i_product_new" messageCode="global_menu_new" url="/products?form" z="Ezf8cTW61d2RkMNEcYkDJpG01kc="/>
+            <menu:item id="i_product_list" messageCode="global_menu_list" url="/products?page=1&amp;size=${empty param.size ? 10 : param.size}" z="kEeyCmUUYXShbDEWwOLheaAkM50="/>
+        </menu:category>
+        <menu:category id="c_incident" z="Dkza8k+BjMrFc7W4KwMKiUtdZWo=">
+            <menu:item id="i_incident_new" messageCode="global_menu_new" url="/incidents?form" z="GPSbsvuNXUF8EJMTjawiW08y3Vs="/>
+            <menu:item id="i_incident_list" messageCode="global_menu_list" url="/incidents?page=1&amp;size=${empty param.size ? 10 : param.size}" z="an8IH+AmV9GynCdvimIxEaYBCAQ="/>
+            <menu:item id="fi_incident_assignee" messageCode="global_menu_find" url="/incidents?find=ByAssignee&amp;form" z="G4PdXLse+0+59g4QxRWYH/GuyWo="/>
+            <menu:item id="fi_incident_incidentidequals" messageCode="global_menu_find" url="/incidents?find=ByIncidentIDEquals&amp;form" z="FmHsJh/JdjmBk+lIAzf0lQfRdzw="/>
+            <menu:item id="fi_incident_incidentidisnotnull" messageCode="global_menu_find" url="/incidents?find=ByIncidentIDIsNotNull&amp;form" z="vyhU56PxJMsaHCWS9TaAMHI80Pg="/>
+            <menu:item id="fi_incident_incidentidisnull" messageCode="global_menu_find" url="/incidents?find=ByIncidentIDIsNull&amp;form" z="bY4REVwEJqRYbyAiSVxQsZGuFy0="/>
+            <menu:item id="fi_incident_incidentidlike" messageCode="global_menu_find" url="/incidents?find=ByIncidentIDLike&amp;form" z="x+bhHnD3VMpoAsVZowqaqkl1+UE="/>
+            <menu:item id="fi_incident_priority" messageCode="global_menu_find" url="/incidents?find=ByPriority&amp;form" z="AXGkU9R9+7Y4JccPY2GtWCxU7tU="/>
+            <menu:item id="fi_incident_product" messageCode="global_menu_find" url="/incidents?find=ByProduct&amp;form" z="lhE3cN+iUk2mhjDxOUEb3xsyFAs="/>
+            <menu:item id="fi_incident_reporteddatebetween" messageCode="global_menu_find" url="/incidents?find=ByReportedDateBetween&amp;form" z="qoMwdW+tfN0E+6yT9WBnbFxqZUA="/>
+            <menu:item id="fi_incident_reporteddateequals" messageCode="global_menu_find" url="/incidents?find=ByReportedDateEquals&amp;form" z="DCS3rWPGBp/3TNNQWoyWSzUvPgk="/>
+            <menu:item id="fi_incident_reporteddategreaterthanequals" messageCode="global_menu_find" url="/incidents?find=ByReportedDateGreaterThanEquals&amp;form" z="/t2xdi7uMLbjV1szRJzt7SO8O9U="/>
+            <menu:item id="fi_incident_resolutionisnull" messageCode="global_menu_find" url="/incidents?find=ByResolutionIsNull&amp;form" z="uM95p7WJQ/mrZhBWpFQhOWuQJvY="/>
+            <menu:item id="fi_incident_resolutionlike" messageCode="global_menu_find" url="/incidents?find=ByResolutionLike&amp;form" z="fJTt0Qs94uvo/AX8e26LZvMAlMs="/>
+            <menu:item id="fi_incident_resolveddatebetween" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateBetween&amp;form" z="doa+Ggi7ufggooxj7XtIIswN358="/>
+            <menu:item id="fi_incident_resolveddateequals" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateEquals&amp;form" z="t7KtEH2AMEBq1jB8MLRi4Y4K2Bc="/>
+            <menu:item id="fi_incident_resolveddategreaterthanequals" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateGreaterThanEquals&amp;form" z="4ZXmFeMnS+zqREmJUtUKl1ZX0Bw="/>
+            <menu:item id="fi_incident_resolveddateisnotnull" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateIsNotNull&amp;form" z="RsnFwjFTuaNjYkAsmCNtD9T+ruM="/>
+            <menu:item id="fi_incident_resolveddateisnull" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateIsNull&amp;form" z="LFHFSMtY/KSgZkd7M8gw0PL4jMM="/>
+            <menu:item id="fi_incident_resolveddatelessthanequals" messageCode="global_menu_find" url="/incidents?find=ByResolvedDateLessThanEquals&amp;form" z="whg627RMdtpdGYuVyliVxbKXbPQ="/>
+            <menu:item id="fi_incident_status" messageCode="global_menu_find" url="/incidents?find=ByStatus&amp;form" z="l9dxyG4bS2xW4966LyJSyuhv42Q="/>
+        </menu:category>
+        <menu:category id="c_assignee" z="URnEMutWOllqxwbzCH8U4cW80vI=">
+            <menu:item id="i_assignee_new" messageCode="global_menu_new" url="/assignees?form" z="SV1NhToaLWlY4yURU2RTKXjlZIs="/>
+            <menu:item id="i_assignee_list" messageCode="global_menu_list" url="/assignees?page=1&amp;size=${empty param.size ? 10 : param.size}" z="5+VR6SLYrzF3s+uDd5xqXcBR1pw="/>
+        </menu:category>
+        <menu:category id="c_status" z="XzEnvQ4n4916mWFCszpAxymOJls=">
+            <menu:item id="i_status_new" messageCode="global_menu_new" url="/statuses?form" z="6KKSWSWkKNkfIXGi3tBFfU6it68="/>
+            <menu:item id="i_status_list" messageCode="global_menu_list" url="/statuses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="qv84Ee4UJYpTszeuYd3LIUKv4cg="/>
+        </menu:category>
+        <menu:category id="c_seleniumtests" z="PPLMd2yNB6/LSbjIWogAacRPU+Q=">
+            <menu:item id="si_seleniumtests_test" messageCode="selenium_menu_test_suite" url="/resources/selenium/test-suite.xhtml" z="wwunW/IPDcunN97u41MvMJZQ2to="/>
+        </menu:category>
+    </menu:menu>
+</div>
