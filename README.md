@@ -13,3 +13,7 @@ This example reads student information from student.csv file in the classpath an
 2) INM (Incident Management System)
 
 This can be used for incident management. It is created using spring roo
+
+3) gms (Ghar Management System)
+
+For keeping basic finance records for personal use.
