@@ -4,11 +4,11 @@
 package com.pks.gms;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -49,10 +49,13 @@ public class GmsApp extends SingleFrameApplication {
         try {
             String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
             ApplicationContext context = new ClassPathXmlApplicationContext(paths);
-            System.out.println(((DataSource) context.getBean("dataSource")).getConnection());
-            launch(GmsApp.class, args);
+//            System.out.println(((DataSource) context.getBean("dataSource")).getConnection());
+            LOGGER.info(((DataSource) context.getBean("dataSource")).getConnection() + "");
         } catch (SQLException ex) {
-            Logger.getLogger(GmsApp.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(GmsApp.class.getName()).log(Level.SEVERE, null, ex);
         }
+//            launch(GmsApp.class, args);
+
     }
+    private static final Logger LOGGER = LoggerFactory.getLogger(GmsApp.class);
 }
