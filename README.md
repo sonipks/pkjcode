@@ -22,11 +22,16 @@ For keeping basic finance records for personal use.
 
 ## Staying in touch
 Follow [@sonipks][] on Twitter. In-depth 
-articles can be found at my blogs [team blog][], and releases are
-announced via our [news feed][].
+articles can be found at my blogs 
+[Interesting Java Snippets][]
+[Interesting Oracle Tips and Tricks][]
+[Linux Administration (Oracle Enterprise Linux)][]
 
 ## License
 The Spring Framework is released under MIT license
 
 [pkjcode]: https://github.com/sonipks/pkjcode.git
-[sonipks]: https://twitter.com/sonipks
+[@sonipks]: https://twitter.com/sonipks
+[Interesting Java Snippets]: http://funjavapk.blogspot.in/
+[Interesting Oracle Tips and Tricks]: http://funoraclepk.blogspot.in/
+[Linux Administration (Oracle Enterprise Linux)]: http://oelpankaj.blogspot.in/
