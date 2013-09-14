@@ -1,8 +1,9 @@
-pkjcode (Pankaj Java code repository)
-=======
+## pkjcode (Pankaj Java code samples repository)
 
-This contains sample java applications to show different technologies
+This contains sample java applications to show modules related to java technology
 
+### check out sources
+`git clone git://github.com/sonipks/pkjcode.git`
 
 1) csvtodb
 Brief: 
@@ -17,3 +18,15 @@ This can be used for incident management. It is created using spring roo
 3) gms (Ghar Management System)
 
 For keeping basic finance records for personal use.
+
+
+## Staying in touch
+Follow [@sonipks][] on Twitter. In-depth 
+articles can be found at my blogs [team blog][], and releases are
+announced via our [news feed][].
+
+## License
+The Spring Framework is released under MIT license
+
+[pkjcode]: https://github.com/sonipks/pkjcode.git
+[sonipks]: https://twitter.com/sonipks
