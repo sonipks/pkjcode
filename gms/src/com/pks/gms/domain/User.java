@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pks.gms.domain;
 
 import java.beans.PropertyChangeListener;
@@ -23,8 +19,9 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
+ * User Entity
  *
- * @author VAIO
+ * @author Pankaj Soni
  */
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})

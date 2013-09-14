@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pks.gms.domain;
 
 import java.beans.PropertyChangeListener;
@@ -22,8 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
+ * Category Entity
  *
- * @author VAIO
+ * @author Pankaj Soni
  */
 @Entity
 @Table(name = "category")

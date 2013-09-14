@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.pks.gms.domain;
 
 import java.io.Serializable;
@@ -22,11 +19,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * Transaction Entity
  *
- * @author VAIO
+ * @author Pankaj Soni
  */
 @Entity
-@Table(name = "transaction")
+@Table(name = "tran_data")
 @NamedQueries({@NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t"), @NamedQuery(name = "Transaction.findById", query = "SELECT t FROM Transaction t WHERE t.id = :id"), @NamedQuery(name = "Transaction.findByAmount", query = "SELECT t FROM Transaction t WHERE t.amount = :amount"), @NamedQuery(name = "Transaction.findByComments", query = "SELECT t FROM Transaction t WHERE t.comments = :comments"), @NamedQuery(name = "Transaction.findByCreditDebit", query = "SELECT t FROM Transaction t WHERE t.creditDebit = :creditDebit"), @NamedQuery(name = "Transaction.findByEntryDate", query = "SELECT t FROM Transaction t WHERE t.entryDate = :entryDate"), @NamedQuery(name = "Transaction.findByTranDate", query = "SELECT t FROM Transaction t WHERE t.tranDate = :tranDate")})
 public class Transaction implements Serializable {
    private static final long serialVersionUID = 1L;
