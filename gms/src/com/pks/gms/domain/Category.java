@@ -96,7 +96,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pks.gms.domain.Category[cid=" + cid + "]";
+        return "Category[cid=" + cid + "]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

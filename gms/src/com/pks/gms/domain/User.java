@@ -27,9 +27,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 @NamedQueries({@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"), @NamedQuery(name = "User.findByUid", query = "SELECT u FROM User u WHERE u.uid = :uid"), @NamedQuery(name = "User.findByAssignedRole", query = "SELECT u FROM User u WHERE u.assignedRole = :assignedRole"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"), @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 public class User implements Serializable {
+
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -43,7 +43,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "username", nullable = false, length = 25)
     private String username;
-    @OneToMany(mappedBy = "uid",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "uid", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
     public List<Transaction> getTransactions() {
@@ -92,6 +92,11 @@ public class User implements Serializable {
         String oldUsername = this.username;
         this.username = username;
         changeSupport.firePropertyChange("username", oldUsername, username);
+    }
+
+    @Override
+    public String toString() {
+        return "User[uid=" + uid + "]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

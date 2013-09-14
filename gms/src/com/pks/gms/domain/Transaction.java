@@ -145,7 +145,7 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pks.gms.domain.Transaction[id=" + id + "]";
+        return "Transaction[id=" + id + "]";
     }
 
 }
