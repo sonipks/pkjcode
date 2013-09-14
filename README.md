@@ -28,7 +28,7 @@ articles can be found at my blogs
 [Linux Administration (Oracle Enterprise Linux)][]
 
 ## License
-The Spring Framework is released under MIT license
+This project is released under MIT license
 
 [pkjcode]: https://github.com/sonipks/pkjcode.git
 [@sonipks]: https://twitter.com/sonipks
