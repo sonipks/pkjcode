@@ -1,4 +1,4 @@
-pkjcode
+pkjcode (Pankaj Java code repository)
 =======
 
 This contains sample java applications to show different technologies
