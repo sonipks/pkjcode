@@ -1,4 +1,3 @@
-
 package com.pks.gms.domain;
 
 import java.io.Serializable;
@@ -27,7 +26,8 @@ import javax.persistence.TemporalType;
 @Table(name = "tran_data")
 @NamedQueries({@NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t"), @NamedQuery(name = "Transaction.findById", query = "SELECT t FROM Transaction t WHERE t.id = :id"), @NamedQuery(name = "Transaction.findByAmount", query = "SELECT t FROM Transaction t WHERE t.amount = :amount"), @NamedQuery(name = "Transaction.findByComments", query = "SELECT t FROM Transaction t WHERE t.comments = :comments"), @NamedQuery(name = "Transaction.findByCreditDebit", query = "SELECT t FROM Transaction t WHERE t.creditDebit = :creditDebit"), @NamedQuery(name = "Transaction.findByEntryDate", query = "SELECT t FROM Transaction t WHERE t.entryDate = :entryDate"), @NamedQuery(name = "Transaction.findByTranDate", query = "SELECT t FROM Transaction t WHERE t.tranDate = :tranDate")})
 public class Transaction implements Serializable {
-   private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -145,7 +145,17 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "Transaction[id=" + id + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("Transaction[" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", comments=" + comments +
+                ", credit/Debit=" + creditDebit +
+                ", entryDate=" + entryDate +
+                ", TranDate=" + tranDate +
+                ", category=" + cid +
+                ", user=" + uid +
+                "]");
+        return builder.toString();
     }
-
 }

@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Category Entity
@@ -23,12 +24,12 @@ import javax.persistence.Transient;
  * @author Pankaj Soni
  */
 @Entity
-@Table(name = "category")
+@Table(name = "category", uniqueConstraints = {@UniqueConstraint(columnNames = {"category"})})
 @NamedQueries({@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"), @NamedQuery(name = "Category.findByCid", query = "SELECT c FROM Category c WHERE c.cid = :cid"), @NamedQuery(name = "Category.findByCategory", query = "SELECT c FROM Category c WHERE c.category = :category")})
 public class Category implements Serializable {
+
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -96,7 +97,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category[cid=" + cid + "]";
+        return "Category[cid=" + cid + ", " + category + "]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

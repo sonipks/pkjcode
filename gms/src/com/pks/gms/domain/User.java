@@ -96,7 +96,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User[uid=" + uid + "]";
+        return "User[uid=" + uid + "," + username + "]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

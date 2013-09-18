@@ -1,8 +1,12 @@
 /*
+ * Bootstrapping Main class
  * GmsApp.java
+ * 
+ * @author Pankaj Soni
  */
 package com.pks.gms;
 
+import com.pks.gms.ui.TransactionEntryView;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.jdesktop.application.Application;
@@ -47,12 +51,12 @@ public class GmsApp extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         try {
-            String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
-            ApplicationContext context = new ClassPathXmlApplicationContext(paths);
-//            System.out.println(((DataSource) context.getBean("dataSource")).getConnection());
-            LOGGER.info(((DataSource) context.getBean("dataSource")).getConnection() + "");
-        } catch (SQLException ex) {
-//            Logger.getLogger(GmsApp.class.getName()).log(Level.SEVERE, null, ex);
+//            String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
+//            ApplicationContext context = new ClassPathXmlApplicationContext(paths);
+//            LOGGER.info(((DataSource) context.getBean("dataSource")).getConnection() + "");
+            new TransactionEntryView().setVisible(true);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getLocalizedMessage());
         }
 //            launch(GmsApp.class, args);
 
