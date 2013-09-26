@@ -6,6 +6,7 @@
  */
 package com.pks.gms;
 
+import com.pks.gms.ui.MenuView;
 import com.pks.gms.ui.TransactionEntryView;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -54,7 +55,7 @@ public class GmsApp extends SingleFrameApplication {
 //            String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
 //            ApplicationContext context = new ClassPathXmlApplicationContext(paths);
 //            LOGGER.info(((DataSource) context.getBean("dataSource")).getConnection() + "");
-            new TransactionEntryView().setVisible(true);
+            new MenuView().setVisible(true);
         } catch (Exception ex) {
             LOGGER.error(ex.getLocalizedMessage());
         }

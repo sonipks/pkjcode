@@ -1,0 +1,13 @@
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-26 07:32:52
+project --topLevelPackage com.pks.jtest
+jpa setup --provider HIBERNATE --database MYSQL 
+entity jpa --class ~.domain.Product --testAutomatically 
+web jsf setup 
+web jsf all --package ~.web
+exit
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-26 07:34:22
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-26 07:40:32
+focus --class ~.domain.Product
+field string --fieldName productName
+exit
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-26 07:41:07

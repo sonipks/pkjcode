@@ -88,7 +88,9 @@
                       <Component id="newButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="creditDebitCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,6 +116,7 @@
                   <Component id="creditDebitLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="creditRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="debitRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="creditDebitCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -267,6 +270,13 @@
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="newButton.text"/>
         <Property name="name" type="java.lang.String" value="newButton" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="creditDebitCheckBox">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" resourceKey="creditDebitCheckBox.text"/>
+        <Property name="name" type="java.lang.String" value="creditDebitCheckBox" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

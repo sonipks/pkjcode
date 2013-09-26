@@ -1,0 +1,24 @@
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-26 06:38:25
+project --topLevelPackage com.pks.gmsweb
+hint
+jpa setup --provider HIBERNATE --database MYSQL 
+hint
+entity jpa --class ~.domain.Product
+entity jpa --class ~.domain.Product --activeRecord false
+repository jpa --interface ~.dao.Product
+web jsf setup 
+// [failed] web jsf all --package ~.web
+exit
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-26 06:49:03
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-26 06:49:07
+project --topLevelPackage com.pks.gmsweb
+jpa setup --provider HIBERNATE --database MYSQL 
+entity jpa --class ~.domain.Product --activeRecord false
+repository jpa --interface ~.dao.Product
+web jsf setup 
+web jsf scaffold --class ~.domain.Product --includeOnMenu 1
+web jsf scaffold --class ~.domain.Product
+// [failed] web jsf all --package ~.web
+// [failed] web jsf all --package ~.controller
+exit
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-26 07:09:29

@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -99,6 +100,7 @@ public class TransactionEntryView extends javax.swing.JFrame {
         categoryField = new javax.swing.JComboBox();
         saveButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
+        creditDebitCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(TransactionEntryView.class);
@@ -162,6 +164,10 @@ public class TransactionEntryView extends javax.swing.JFrame {
         newButton.setText(resourceMap.getString("newButton.text")); // NOI18N
         newButton.setName("newButton"); // NOI18N
 
+        creditDebitCheckBox.setSelected(true);
+        creditDebitCheckBox.setText(resourceMap.getString("creditDebitCheckBox.text")); // NOI18N
+        creditDebitCheckBox.setName("creditDebitCheckBox"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,7 +212,9 @@ public class TransactionEntryView extends javax.swing.JFrame {
                         .addComponent(saveButton)
                         .addGap(18, 18, 18)
                         .addComponent(newButton)))
-                .addGap(44, 44, 44))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(creditDebitCheckBox)
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +233,8 @@ public class TransactionEntryView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creditDebitLabel)
                     .addComponent(creditRadio)
-                    .addComponent(debitRadio))
+                    .addComponent(debitRadio)
+                    .addComponent(creditDebitCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entryDateLabel)
@@ -290,7 +299,15 @@ public class TransactionEntryView extends javax.swing.JFrame {
         tranRecord.setUid((User) userField.getSelectedItem());
         tranRecord.setCid((Category) categoryField.getSelectedItem());
 
-        System.out.println("tranRec: " + tranRecord);
+        LOGGER.debug("tranRec: " + tranRecord);
+        if (creditDebitCheckBox.isSelected()) {
+            try {
+                Transaction dupTranRecord = (Transaction) tranRecord.clone();
+                LOGGER.debug("dup tranRec: " + dupTranRecord);
+                hibernateTemplate.saveOrUpdate(dupTranRecord);
+            } catch (CloneNotSupportedException ex) {
+            }
+        }
         hibernateTemplate.saveOrUpdate(tranRecord);
         JOptionPane.showMessageDialog(this, "Data Saved");
     }
@@ -307,6 +324,7 @@ public class TransactionEntryView extends javax.swing.JFrame {
     private javax.swing.JLabel categoryLabel;
     private javax.swing.JTextField commentsField;
     private javax.swing.JLabel commentsLabel;
+    private javax.swing.JCheckBox creditDebitCheckBox;
     private javax.swing.JLabel creditDebitLabel;
     private javax.swing.JRadioButton creditRadio;
     private javax.swing.JRadioButton debitRadio;

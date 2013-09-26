@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp spec="1.0+" codebase="http://www.jdatepicker.com/demo/" href="startDemo.jnlp">
+  <information>
+    <title>Pankaj Sample App</title>
+    <vendor>Soni Organizations</vendor>
+    <homepage href="http://www.jdatepicker.com/"/>
+    <description>Sample standalone app JNLP file demo</description>
+    <description kind="short">sample sort desc for sample app.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.4+"/>
+    <j2se version="1.3"/>
+        <jar href="lib/binding.jar"/>
+        <jar href="lib/sampleApp.jar" main="true"/>
+  </resources>
+  <security> <all-permissions/> </security>
+  <application-desc main-class="com.pks.sampleapp.Main"/>
+</jnlp>
+

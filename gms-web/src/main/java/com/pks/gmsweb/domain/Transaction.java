@@ -1,4 +1,4 @@
-package com.pks.gms.domain;
+package com.pks.gmsweb.domain;
 
 import java.io.Serializable;
 import java.lang.CloneNotSupportedException;
@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Transaction Entity
@@ -144,21 +146,10 @@ public class Transaction implements Serializable, Cloneable {
         return true;
     }
 
-    @Override
+	    @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Transaction[" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", comments=" + comments +
-                ", credit/Debit=" + creditDebit +
-                ", entryDate=" + entryDate +
-                ", TranDate=" + tranDate +
-                ", category=" + cid +
-                ", user=" + uid +
-                "]");
-        return builder.toString();
-    }
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 
     @Override
     public Object clone() throws CloneNotSupportedException {
