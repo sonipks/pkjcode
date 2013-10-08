@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User Entity
@@ -45,6 +47,8 @@ public class User implements Serializable {
     private String username;
     @OneToMany(mappedBy = "uid", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
+    @Transient
+    private static final Logger LOGGER = LoggerFactory.getLogger(User.class);
 
     public List<Transaction> getTransactions() {
         return transactions;
@@ -96,7 +100,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User[uid=" + uid + "," + username + "]";
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("User[uid=" + uid + "," + username + "]");
+        }
+        return username;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

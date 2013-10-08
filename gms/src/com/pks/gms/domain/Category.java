@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Category Entity
@@ -39,6 +41,8 @@ public class Category implements Serializable {
     private String category;
     @OneToMany(mappedBy = "cid", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
+    @Transient
+    private static final Logger LOGGER = LoggerFactory.getLogger(Category.class);
 
     public Category() {
     }
@@ -97,7 +101,10 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category[cid=" + cid + ", " + category + "]";
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Category[cid=" + cid + ", " + category + "]");
+        }
+        return category;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

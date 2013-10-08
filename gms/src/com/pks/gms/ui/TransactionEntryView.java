@@ -21,11 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import org.jdesktop.application.Action;
+import org.jdesktop.application.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,26 +41,14 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  */
 public class TransactionEntryView extends javax.swing.JFrame {
 
-    String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
-    ApplicationContext context = new ClassPathXmlApplicationContext(paths);
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionEntryView.class);
 
     /** Creates new form TransactionEntryView */
     public TransactionEntryView() {
-        try {
-//            UIManager.setLookAndFeel(new NimbusLookAndFeel());
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage());
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ex1) {
-                LOGGER.error(ex1.getMessage());
-            }
-
-        }
+        UIUtils.setCustomUI();
         initComponents();
-        hibernateTemplate = (HibernateTemplate) context.getBean(HibernateTemplate.class);
+        hibernateTemplate = (HibernateTemplate) UIUtils.getSpringApplicationContext().getBean(HibernateTemplate.class);
         List<Category> categorys = hibernateTemplate.findByNamedQuery("Category.findAll");
         Vector<Category> vector = new Vector<Category>(categorys);
         categoryField.setModel(new DefaultComboBoxModel(vector));
@@ -101,30 +90,43 @@ public class TransactionEntryView extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         creditDebitCheckBox = new javax.swing.JCheckBox();
+        statusLabel = new javax.swing.JLabel();
+        dateFormatLabel = new javax.swing.JLabel();
+        quitButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(TransactionEntryView.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
+        setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocationByPlatform(true);
         setName("Form"); // NOI18N
+        setResizable(false);
 
+        amountLabel.setLabelFor(amountField);
         amountLabel.setText(resourceMap.getString("amountLabel.text")); // NOI18N
         amountLabel.setName("amountLabel"); // NOI18N
 
+        commentsLabel.setLabelFor(commentsField);
         commentsLabel.setText(resourceMap.getString("commentsLabel.text")); // NOI18N
         commentsLabel.setName("commentsLabel"); // NOI18N
 
         creditDebitLabel.setText(resourceMap.getString("creditDebitLabel.text")); // NOI18N
         creditDebitLabel.setName("creditDebitLabel"); // NOI18N
 
+        entryDateLabel.setLabelFor(entryDateField);
         entryDateLabel.setText(resourceMap.getString("entryDateLabel.text")); // NOI18N
         entryDateLabel.setName("entryDateLabel"); // NOI18N
 
+        tranDateLabel.setLabelFor(tranDateField);
         tranDateLabel.setText(resourceMap.getString("tranDateLabel.text")); // NOI18N
         tranDateLabel.setName("tranDateLabel"); // NOI18N
 
+        categoryLabel.setLabelFor(categoryField);
         categoryLabel.setText(resourceMap.getString("categoryLabel.text")); // NOI18N
         categoryLabel.setName("categoryLabel"); // NOI18N
 
+        userLabel.setLabelFor(userField);
         userLabel.setText(resourceMap.getString("userLabel.text")); // NOI18N
         userLabel.setName("userLabel"); // NOI18N
 
@@ -157,69 +159,80 @@ public class TransactionEntryView extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getActionMap(TransactionEntryView.class, this);
         saveButton.setAction(actionMap.get("saveAction")); // NOI18N
+        saveButton.setMnemonic('S');
         saveButton.setText(resourceMap.getString("saveButton.text")); // NOI18N
         saveButton.setName("saveButton"); // NOI18N
 
         newButton.setAction(actionMap.get("newAction")); // NOI18N
+        newButton.setMnemonic('N');
         newButton.setText(resourceMap.getString("newButton.text")); // NOI18N
         newButton.setName("newButton"); // NOI18N
 
         creditDebitCheckBox.setSelected(true);
         creditDebitCheckBox.setText(resourceMap.getString("creditDebitCheckBox.text")); // NOI18N
+        creditDebitCheckBox.setToolTipText(resourceMap.getString("creditDebitCheckBox.toolTipText")); // NOI18N
         creditDebitCheckBox.setName("creditDebitCheckBox"); // NOI18N
+
+        statusLabel.setFont(resourceMap.getFont("statusLabel.font")); // NOI18N
+        statusLabel.setForeground(resourceMap.getColor("statusLabel.foreground")); // NOI18N
+        statusLabel.setText(resourceMap.getString("statusLabel.text")); // NOI18N
+        statusLabel.setName("statusLabel"); // NOI18N
+
+        dateFormatLabel.setText(resourceMap.getString("dateFormatLabel.text")); // NOI18N
+        dateFormatLabel.setName("dateFormatLabel"); // NOI18N
+
+        quitButton.setAction(actionMap.get("quit")); // NOI18N
+        quitButton.setMnemonic('Q');
+        quitButton.setText(resourceMap.getString("quitButton.text")); // NOI18N
+        quitButton.setName("quitButton"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(commentsLabel)
+                    .addComponent(amountLabel)
+                    .addComponent(creditDebitLabel)
+                    .addComponent(categoryLabel)
+                    .addComponent(userLabel)
+                    .addComponent(tranDateLabel)
+                    .addComponent(entryDateLabel)
+                    .addComponent(newButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tranDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(userField, 0, 124, Short.MAX_VALUE)
+                            .addComponent(categoryField, 0, 124, Short.MAX_VALUE)
+                            .addComponent(entryDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(commentsField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tranDateLabel)
-                                    .addComponent(entryDateLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tranDateField, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(entryDateField, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(commentsLabel)
-                                    .addComponent(amountLabel)
-                                    .addComponent(creditDebitLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(commentsField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(creditRadio)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(debitRadio))
-                                    .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(categoryLabel)
-                                    .addComponent(userLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userField, 0, 137, Short.MAX_VALUE)
-                                    .addComponent(categoryField, 0, 137, Short.MAX_VALUE))))
-                        .addGap(101, 101, 101))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(saveButton)
+                                .addComponent(creditRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(debitRadio))
+                            .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(statusLabel))
                         .addGap(18, 18, 18)
-                        .addComponent(newButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(creditDebitCheckBox)
-                .addGap(33, 33, 33))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(creditDebitCheckBox)
+                            .addComponent(dateFormatLabel))
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(saveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(quitButton)
+                        .addGap(131, 131, 131))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(21, 21, 21)
+                .addComponent(statusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(commentsLabel)
@@ -238,7 +251,8 @@ public class TransactionEntryView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entryDateLabel)
-                    .addComponent(entryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(entryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateFormatLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tranDateLabel)
@@ -251,12 +265,15 @@ public class TransactionEntryView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel)
                     .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newButton)
                     .addComponent(saveButton)
-                    .addComponent(newButton))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(quitButton))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleDescription(resourceMap.getString("Form.AccessibleContext.accessibleDescription")); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -275,41 +292,66 @@ public class TransactionEntryView extends javax.swing.JFrame {
 
     @Action
     public void newAction() {
+        statusLabel.setText("New Record Entry");
         tranRecord = new Transaction();
-        JOptionPane.showMessageDialog(this, "New Record Entry");
-        amountField.setText("0");
+        String inputText = JOptionPane.showInputDialog(this, "New Record Entry - Enter Amount");
+        amountField.setText(inputText);
     }
 
     @Action
-    public void saveAction() {
-        tranRecord.setAmount(new BigInteger(amountField.getText()));
-        tranRecord.setComments(commentsField.getText());
-        if (debitRadio.isSelected()) {
+    public Task saveAction() {
+        return new SaveActionTask(org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class));
+    }
+
+    private class SaveActionTask extends org.jdesktop.application.Task<Object, Void> {
+        SaveActionTask(org.jdesktop.application.Application app) {
+            // Runs on the EDT.  Copy GUI state that
+            // doInBackground() depends on from parameters
+            // to SaveActionTask fields, here.
+            super(app);
+            tranRecord.setAmount(new BigInteger(amountField.getText()));
+            tranRecord.setComments(commentsField.getText());
+            if (debitRadio.isSelected()) {
             tranRecord.setCreditDebit("D");
-        } else {
+            } else {
             tranRecord.setCreditDebit("C");
-        }
-        try {
+            }
+            try {
             tranRecord.setEntryDate(dateFormat.parse(entryDateField.getText()));
             tranRecord.setTranDate(dateFormat.parse(tranDateField.getText()));
-        } catch (ParseException ex) {
+            } catch (ParseException ex) {
             LOGGER.error(ex.getLocalizedMessage());
-        }
+            }
 
-        tranRecord.setUid((User) userField.getSelectedItem());
-        tranRecord.setCid((Category) categoryField.getSelectedItem());
+            tranRecord.setUid((User) userField.getSelectedItem());
+            tranRecord.setCid((Category) categoryField.getSelectedItem());
 
-        LOGGER.debug("tranRec: " + tranRecord);
-        if (creditDebitCheckBox.isSelected()) {
+            LOGGER.debug("tranRec: " + tranRecord);
+            if (creditDebitCheckBox.isSelected()) {
+            LOGGER.debug("creditDebitCheckBox selected");
             try {
-                Transaction dupTranRecord = (Transaction) tranRecord.clone();
-                LOGGER.debug("dup tranRec: " + dupTranRecord);
-                hibernateTemplate.saveOrUpdate(dupTranRecord);
+            Transaction dupTranRecord = (Transaction) tranRecord.clone();
+            LOGGER.debug("dup tranRec: " + dupTranRecord);
+            hibernateTemplate.saveOrUpdate(dupTranRecord);
             } catch (CloneNotSupportedException ex) {
             }
+            } else {
+            LOGGER.debug("creditDebitCheckBox not selected");
+            }
+            hibernateTemplate.saveOrUpdate(tranRecord);
+            //        JOptionPane.showMessageDialog(this, "Data Saved");
+            statusLabel.setText("Data Saved successfully!");
         }
-        hibernateTemplate.saveOrUpdate(tranRecord);
-        JOptionPane.showMessageDialog(this, "Data Saved");
+        @Override protected Object doInBackground() {
+            // Your Task's code here.  This method runs
+            // on a background thread, so don't reference
+            // the Swing GUI from here.
+            return null;  // return your result
+        }
+        @Override protected void succeeded(Object result) {
+            // Runs on the EDT.  Update the GUI based on
+            // the result computed by doInBackground().
+        }
     }
     @Autowired
     HibernateTemplate hibernateTemplate;
@@ -327,11 +369,14 @@ public class TransactionEntryView extends javax.swing.JFrame {
     private javax.swing.JCheckBox creditDebitCheckBox;
     private javax.swing.JLabel creditDebitLabel;
     private javax.swing.JRadioButton creditRadio;
+    private javax.swing.JLabel dateFormatLabel;
     private javax.swing.JRadioButton debitRadio;
     private javax.swing.JTextField entryDateField;
     private javax.swing.JLabel entryDateLabel;
     private javax.swing.JButton newButton;
+    private javax.swing.JButton quitButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField tranDateField;
     private javax.swing.JLabel tranDateLabel;
     private com.pks.gms.domain.Transaction tranRecord;

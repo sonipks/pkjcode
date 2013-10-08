@@ -8,10 +8,11 @@
  *
  * Created on Sep 22, 2013, 11:59:31 PM
  */
-
 package com.pks.gms.ui;
 
 import org.jdesktop.application.Action;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -19,8 +20,11 @@ import org.jdesktop.application.Action;
  */
 public class MenuView extends javax.swing.JFrame {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuView.class);
+
     /** Creates new form MenuView */
     public MenuView() {
+        UIUtils.setCustomUI();
         initComponents();
     }
 
@@ -35,20 +39,36 @@ public class MenuView extends javax.swing.JFrame {
 
         viewTranButton = new javax.swing.JButton();
         entryButton = new javax.swing.JButton();
+        statusLabel = new javax.swing.JLabel();
+        chartViewButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(MenuView.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
+        setLocationByPlatform(true);
         setName("Form"); // NOI18N
+        setResizable(false);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getActionMap(MenuView.class, this);
         viewTranButton.setAction(actionMap.get("listTransaction")); // NOI18N
+        viewTranButton.setMnemonic('T');
         viewTranButton.setText(resourceMap.getString("viewTranButton.text")); // NOI18N
         viewTranButton.setName("viewTranButton"); // NOI18N
 
         entryButton.setAction(actionMap.get("transactionEntry")); // NOI18N
+        entryButton.setMnemonic('E');
         entryButton.setText(resourceMap.getString("entryButton.text")); // NOI18N
+        entryButton.setToolTipText(resourceMap.getString("entryButton.toolTipText")); // NOI18N
         entryButton.setName("entryButton"); // NOI18N
+
+        statusLabel.setFont(resourceMap.getFont("statusLabel.font")); // NOI18N
+        statusLabel.setForeground(resourceMap.getColor("statusLabel.foreground")); // NOI18N
+        statusLabel.setText(resourceMap.getString("statusLabel.text")); // NOI18N
+        statusLabel.setName("statusLabel"); // NOI18N
+
+        chartViewButton.setAction(actionMap.get("categoryChartViewAction")); // NOI18N
+        chartViewButton.setText(resourceMap.getString("chartViewButton.text")); // NOI18N
+        chartViewButton.setName("chartViewButton"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,28 +77,35 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chartViewButton)
+                    .addComponent(statusLabel)
                     .addComponent(entryButton)
                     .addComponent(viewTranButton))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(statusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(entryButton)
                 .addGap(18, 18, 18)
                 .addComponent(viewTranButton)
-                .addGap(132, 132, 132))
+                .addGap(18, 18, 18)
+                .addComponent(chartViewButton)
+                .addGap(91, 91, 91))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new MenuView().setVisible(true);
             }
@@ -86,17 +113,24 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     @Action
-    public void transactionEntry(){
+    public void transactionEntry() {
         new TransactionEntryView().setVisible(true);
     }
+
     @Action
-    public void listTransaction(){
+    public void listTransaction() {
         new ListTransaction().setVisible(true);
     }
 
+    @Action
+    public void categoryChartViewAction() {
+        new ChartView().setVisible(true);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chartViewButton;
     private javax.swing.JButton entryButton;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JButton viewTranButton;
     // End of variables declaration//GEN-END:variables
-
 }

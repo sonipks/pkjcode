@@ -29,7 +29,7 @@ public class ListTransaction extends javax.swing.JFrame {
 
     String[] paths = {"classpath:com/pks/gms/resources/spring/applicationContext.xml"};
     ApplicationContext context = new ClassPathXmlApplicationContext(paths);
-    HibernateTemplate hibernateTemplate;
+    HibernateTemplate hibernateTemplate=context.getBean(HibernateTemplate.class);
     private static final Logger LOGGER = LoggerFactory.getLogger(ListTransaction.class);
 
     /** Creates new form ListTransaction */
@@ -96,7 +96,9 @@ LOGGER.info("Hello");
         jScrollPane1 = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(ListTransaction.class);
+        setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
