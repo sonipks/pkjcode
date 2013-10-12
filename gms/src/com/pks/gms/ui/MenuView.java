@@ -45,18 +45,17 @@ public class MenuView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(MenuView.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
+        setAlwaysOnTop(true);
         setLocationByPlatform(true);
         setName("Form"); // NOI18N
         setResizable(false);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getActionMap(MenuView.class, this);
         viewTranButton.setAction(actionMap.get("listTransaction")); // NOI18N
-        viewTranButton.setMnemonic('T');
         viewTranButton.setText(resourceMap.getString("viewTranButton.text")); // NOI18N
         viewTranButton.setName("viewTranButton"); // NOI18N
 
         entryButton.setAction(actionMap.get("transactionEntry")); // NOI18N
-        entryButton.setMnemonic('E');
         entryButton.setText(resourceMap.getString("entryButton.text")); // NOI18N
         entryButton.setToolTipText(resourceMap.getString("entryButton.toolTipText")); // NOI18N
         entryButton.setName("entryButton"); // NOI18N
@@ -75,26 +74,26 @@ public class MenuView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chartViewButton)
                     .addComponent(statusLabel)
                     .addComponent(entryButton)
                     .addComponent(viewTranButton))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(statusLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(entryButton)
                 .addGap(18, 18, 18)
                 .addComponent(viewTranButton)
                 .addGap(18, 18, 18)
                 .addComponent(chartViewButton)
-                .addGap(91, 91, 91))
+                .addGap(95, 95, 95))
         );
 
         pack();

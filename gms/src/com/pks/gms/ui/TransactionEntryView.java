@@ -15,6 +15,10 @@ package com.pks.gms.ui;
 import com.pks.gms.domain.Category;
 import com.pks.gms.domain.Transaction;
 import com.pks.gms.domain.User;
+import datechooser.beans.DateChooserCombo;
+import datechooser.beans.PermanentBean;
+import java.io.File;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,15 +27,11 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -41,7 +41,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  */
 public class TransactionEntryView extends javax.swing.JFrame {
 
-    
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionEntryView.class);
 
     /** Creates new form TransactionEntryView */
@@ -55,8 +54,17 @@ public class TransactionEntryView extends javax.swing.JFrame {
         List<User> users = hibernateTemplate.findByNamedQuery("User.findAll");
         Vector<User> v = new Vector<User>(users);
         userField.setModel(new DefaultComboBoxModel(v));
-        entryDateField.setText(dateFormat.format(new Date()));
-        tranDateField.setText(entryDateField.getText());
+//        entryDateField.setText(dateFormat.format(new Date()));
+//        tranDateField.setText(entryDateField.getText());
+//        For dateChooser combo
+        entryDateChooserCombo.setDateFormat(dateFormat);
+        tranDateChooserCombo.setDateFormat(dateFormat);
+
+//        InputStream dateChooserCfgStream = TransactionEntryView.class.getClassLoader().getResourceAsStream("com/pks/gms/ui/resources/DateChooserComboCfg.dchc");
+//        if(dateChooserCfgStream==null){
+//            LOGGER.error("dateChooser cfg not loaded");
+//        }
+//        dateChooserCombo.
     }
 
     /** This method is called from within the constructor to
@@ -83,16 +91,20 @@ public class TransactionEntryView extends javax.swing.JFrame {
         commentsField = new javax.swing.JTextField();
         creditRadio = new javax.swing.JRadioButton();
         debitRadio = new javax.swing.JRadioButton();
-        entryDateField = new javax.swing.JTextField();
-        tranDateField = new javax.swing.JTextField();
         userField = new javax.swing.JComboBox();
         categoryField = new javax.swing.JComboBox();
         saveButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         creditDebitCheckBox = new javax.swing.JCheckBox();
         statusLabel = new javax.swing.JLabel();
-        dateFormatLabel = new javax.swing.JLabel();
         quitButton = new javax.swing.JButton();
+        entryDateChooserCombo = new datechooser.beans.DateChooserCombo();
+        tranDateChooserCombo = new datechooser.beans.DateChooserCombo();
+        statusPanel = new javax.swing.JPanel();
+        javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
+        statusMessageLabel = new javax.swing.JLabel();
+        statusAnimationLabel = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getResourceMap(TransactionEntryView.class);
@@ -114,11 +126,9 @@ public class TransactionEntryView extends javax.swing.JFrame {
         creditDebitLabel.setText(resourceMap.getString("creditDebitLabel.text")); // NOI18N
         creditDebitLabel.setName("creditDebitLabel"); // NOI18N
 
-        entryDateLabel.setLabelFor(entryDateField);
         entryDateLabel.setText(resourceMap.getString("entryDateLabel.text")); // NOI18N
         entryDateLabel.setName("entryDateLabel"); // NOI18N
 
-        tranDateLabel.setLabelFor(tranDateField);
         tranDateLabel.setText(resourceMap.getString("tranDateLabel.text")); // NOI18N
         tranDateLabel.setName("tranDateLabel"); // NOI18N
 
@@ -145,12 +155,6 @@ public class TransactionEntryView extends javax.swing.JFrame {
         debitRadio.setText(resourceMap.getString("debitRadio.text")); // NOI18N
         debitRadio.setName("debitRadio"); // NOI18N
 
-        entryDateField.setText(resourceMap.getString("entryDateField.text")); // NOI18N
-        entryDateField.setName("entryDateField"); // NOI18N
-
-        tranDateField.setText(resourceMap.getString("tranDateField.text")); // NOI18N
-        tranDateField.setName("tranDateField"); // NOI18N
-
         userField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pankaj" }));
         userField.setName("userField"); // NOI18N
 
@@ -159,12 +163,10 @@ public class TransactionEntryView extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getActionMap(TransactionEntryView.class, this);
         saveButton.setAction(actionMap.get("saveAction")); // NOI18N
-        saveButton.setMnemonic('S');
         saveButton.setText(resourceMap.getString("saveButton.text")); // NOI18N
         saveButton.setName("saveButton"); // NOI18N
 
         newButton.setAction(actionMap.get("newAction")); // NOI18N
-        newButton.setMnemonic('N');
         newButton.setText(resourceMap.getString("newButton.text")); // NOI18N
         newButton.setName("newButton"); // NOI18N
 
@@ -178,104 +180,186 @@ public class TransactionEntryView extends javax.swing.JFrame {
         statusLabel.setText(resourceMap.getString("statusLabel.text")); // NOI18N
         statusLabel.setName("statusLabel"); // NOI18N
 
-        dateFormatLabel.setText(resourceMap.getString("dateFormatLabel.text")); // NOI18N
-        dateFormatLabel.setName("dateFormatLabel"); // NOI18N
-
         quitButton.setAction(actionMap.get("quit")); // NOI18N
-        quitButton.setMnemonic('Q');
         quitButton.setText(resourceMap.getString("quitButton.text")); // NOI18N
         quitButton.setName("quitButton"); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(commentsLabel)
-                    .addComponent(amountLabel)
-                    .addComponent(creditDebitLabel)
-                    .addComponent(categoryLabel)
-                    .addComponent(userLabel)
-                    .addComponent(tranDateLabel)
-                    .addComponent(entryDateLabel)
-                    .addComponent(newButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tranDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(userField, 0, 124, Short.MAX_VALUE)
-                            .addComponent(categoryField, 0, 124, Short.MAX_VALUE)
-                            .addComponent(entryDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(commentsField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(creditRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(debitRadio))
-                            .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(statusLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(creditDebitCheckBox)
-                            .addComponent(dateFormatLabel))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(saveButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(quitButton)
-                        .addGap(131, 131, 131))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(statusLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        entryDateChooserCombo.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+            new datechooser.view.appearance.ViewAppearance("custom",
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    true,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 255),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(128, 128, 128),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(255, 0, 0),
+                    false,
+                    false,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                (datechooser.view.BackRenderer)null,
+                false,
+                true)));
+    entryDateChooserCombo.setCalendarPreferredSize(new java.awt.Dimension(335, 255));
+    entryDateChooserCombo.setLocked(true);
+    entryDateChooserCombo.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
+
+    tranDateChooserCombo.setCalendarPreferredSize(new java.awt.Dimension(335, 255));
+    tranDateChooserCombo.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
+
+    statusPanel.setName("statusPanel"); // NOI18N
+
+    statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
+
+    statusMessageLabel.setName("statusMessageLabel"); // NOI18N
+
+    statusAnimationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    statusAnimationLabel.setName("statusAnimationLabel"); // NOI18N
+
+    progressBar.setName("progressBar"); // NOI18N
+
+    javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
+    statusPanel.setLayout(statusPanelLayout);
+    statusPanelLayout.setHorizontalGroup(
+        statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+        .addGroup(statusPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(statusMessageLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+            .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(statusAnimationLabel)
+            .addContainerGap())
+    );
+    statusPanelLayout.setVerticalGroup(
+        statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(statusPanelLayout.createSequentialGroup()
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(statusMessageLabel)
+                .addComponent(statusAnimationLabel)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(3, 3, 3))
+    );
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(commentsLabel)
-                        .addComponent(commentsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(amountLabel)
-                            .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(amountLabel)
+                        .addComponent(creditDebitLabel)
+                        .addComponent(categoryLabel)
+                        .addComponent(userLabel)
+                        .addComponent(tranDateLabel)
+                        .addComponent(entryDateLabel)
+                        .addComponent(newButton))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(saveButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(quitButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(userField, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(categoryField, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(entryDateChooserCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(creditRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(debitRadio))
+                                    .addComponent(tranDateChooserCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(creditDebitCheckBox))
+                            .addComponent(amountField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(commentsField, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addContainerGap(130, Short.MAX_VALUE))
+                .addComponent(statusPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap(21, Short.MAX_VALUE)
+            .addComponent(statusLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(creditDebitLabel)
-                    .addComponent(creditRadio)
-                    .addComponent(debitRadio)
-                    .addComponent(creditDebitCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(entryDateLabel)
-                    .addComponent(entryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateFormatLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tranDateLabel)
-                    .addComponent(tranDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(categoryLabel)
-                    .addComponent(categoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLabel)
-                    .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newButton)
-                    .addComponent(saveButton)
-                    .addComponent(quitButton))
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
+                    .addComponent(commentsLabel)
+                    .addComponent(commentsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(amountLabel)
+                        .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(26, 26, 26)))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(creditDebitLabel)
+                .addComponent(creditRadio)
+                .addComponent(debitRadio)
+                .addComponent(creditDebitCheckBox))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(entryDateLabel)
+                .addComponent(entryDateChooserCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(tranDateLabel)
+                .addComponent(tranDateChooserCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(categoryLabel)
+                .addComponent(categoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(userLabel)
+                .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(newButton)
+                .addComponent(saveButton)
+                .addComponent(quitButton))
+            .addGap(18, 18, 18)
+            .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+    );
 
-        getAccessibleContext().setAccessibleDescription(resourceMap.getString("Form.AccessibleContext.accessibleDescription")); // NOI18N
+    getAccessibleContext().setAccessibleDescription(resourceMap.getString("Form.AccessibleContext.accessibleDescription")); // NOI18N
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -304,6 +388,9 @@ public class TransactionEntryView extends javax.swing.JFrame {
     }
 
     private class SaveActionTask extends org.jdesktop.application.Task<Object, Void> {
+
+        boolean creditDebitFlag = false;
+
         SaveActionTask(org.jdesktop.application.Application app) {
             // Runs on the EDT.  Copy GUI state that
             // doInBackground() depends on from parameters
@@ -312,50 +399,53 @@ public class TransactionEntryView extends javax.swing.JFrame {
             tranRecord.setAmount(new BigInteger(amountField.getText()));
             tranRecord.setComments(commentsField.getText());
             if (debitRadio.isSelected()) {
-            tranRecord.setCreditDebit("D");
+                tranRecord.setCreditDebit("D");
             } else {
-            tranRecord.setCreditDebit("C");
+                tranRecord.setCreditDebit("C");
             }
-            try {
-            tranRecord.setEntryDate(dateFormat.parse(entryDateField.getText()));
-            tranRecord.setTranDate(dateFormat.parse(tranDateField.getText()));
-            } catch (ParseException ex) {
-            LOGGER.error(ex.getLocalizedMessage());
-            }
+                tranRecord.setEntryDate(entryDateChooserCombo.getCurrent().getTime());
+                tranRecord.setTranDate(tranDateChooserCombo.getCurrent().getTime());
+//                tranRecord.setTranDate(dateFormat.parse(tranDateField.getText()));
+
 
             tranRecord.setUid((User) userField.getSelectedItem());
             tranRecord.setCid((Category) categoryField.getSelectedItem());
 
             LOGGER.debug("tranRec: " + tranRecord);
-            if (creditDebitCheckBox.isSelected()) {
-            LOGGER.debug("creditDebitCheckBox selected");
-            try {
-            Transaction dupTranRecord = (Transaction) tranRecord.clone();
-            LOGGER.debug("dup tranRec: " + dupTranRecord);
-            hibernateTemplate.saveOrUpdate(dupTranRecord);
-            } catch (CloneNotSupportedException ex) {
-            }
-            } else {
-            LOGGER.debug("creditDebitCheckBox not selected");
-            }
-            hibernateTemplate.saveOrUpdate(tranRecord);
-            //        JOptionPane.showMessageDialog(this, "Data Saved");
-            statusLabel.setText("Data Saved successfully!");
+            creditDebitFlag = creditDebitCheckBox.isSelected();
+            statusLabel.setText("Saving Data...");
+
+
         }
-        @Override protected Object doInBackground() {
+
+        @Override
+        protected Object doInBackground() {
             // Your Task's code here.  This method runs
             // on a background thread, so don't reference
             // the Swing GUI from here.
+            if (creditDebitFlag) {
+                try {
+                    Transaction dupTranRecord = (Transaction) tranRecord.clone();
+                    LOGGER.debug("dup tranRec: " + dupTranRecord);
+                    hibernateTemplate.saveOrUpdate(dupTranRecord);
+                } catch (CloneNotSupportedException ex) {
+                }
+            }
+            hibernateTemplate.saveOrUpdate(tranRecord);
             return null;  // return your result
         }
-        @Override protected void succeeded(Object result) {
+
+        @Override
+        protected void succeeded(Object result) {
             // Runs on the EDT.  Update the GUI based on
             // the result computed by doInBackground().
+            statusLabel.setText("Data Saved successfully!");
         }
     }
     @Autowired
     HibernateTemplate hibernateTemplate;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+    public DateChooserCombo dateChooserCombo = new DateChooserCombo();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amountField;
@@ -369,15 +459,18 @@ public class TransactionEntryView extends javax.swing.JFrame {
     private javax.swing.JCheckBox creditDebitCheckBox;
     private javax.swing.JLabel creditDebitLabel;
     private javax.swing.JRadioButton creditRadio;
-    private javax.swing.JLabel dateFormatLabel;
     private javax.swing.JRadioButton debitRadio;
-    private javax.swing.JTextField entryDateField;
+    private datechooser.beans.DateChooserCombo entryDateChooserCombo;
     private javax.swing.JLabel entryDateLabel;
     private javax.swing.JButton newButton;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton quitButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusLabel;
-    private javax.swing.JTextField tranDateField;
+    private javax.swing.JLabel statusMessageLabel;
+    private javax.swing.JPanel statusPanel;
+    private datechooser.beans.DateChooserCombo tranDateChooserCombo;
     private javax.swing.JLabel tranDateLabel;
     private com.pks.gms.domain.Transaction tranRecord;
     private com.pks.gms.domain.User user;
