@@ -16,13 +16,8 @@ import com.pks.gms.domain.Category;
 import com.pks.gms.domain.Transaction;
 import com.pks.gms.domain.User;
 import datechooser.beans.DateChooserCombo;
-import datechooser.beans.PermanentBean;
-import java.io.File;
-import java.io.InputStream;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -49,11 +44,11 @@ public class TransactionEntryView extends javax.swing.JFrame {
         initComponents();
         hibernateTemplate = (HibernateTemplate) UIUtils.getSpringApplicationContext().getBean(HibernateTemplate.class);
         List<Category> categorys = hibernateTemplate.findByNamedQuery("Category.findAll");
-        Vector<Category> vector = new Vector<Category>(categorys);
-        categoryField.setModel(new DefaultComboBoxModel(vector));
+        Vector<Category> categoryVector = new Vector<Category>(categorys);
+        categoryField.setModel(new DefaultComboBoxModel(categoryVector));
         List<User> users = hibernateTemplate.findByNamedQuery("User.findAll");
-        Vector<User> v = new Vector<User>(users);
-        userField.setModel(new DefaultComboBoxModel(v));
+        Vector<User> userVector = new Vector<User>(users);
+        userField.setModel(new DefaultComboBoxModel(userVector));
 //        entryDateField.setText(dateFormat.format(new Date()));
 //        tranDateField.setText(entryDateField.getText());
 //        For dateChooser combo
@@ -163,11 +158,15 @@ public class TransactionEntryView extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(com.pks.gms.GmsApp.class).getContext().getActionMap(TransactionEntryView.class, this);
         saveButton.setAction(actionMap.get("saveAction")); // NOI18N
+        saveButton.setMnemonic('S');
         saveButton.setText(resourceMap.getString("saveButton.text")); // NOI18N
+        saveButton.setToolTipText(resourceMap.getString("saveButton.toolTipText")); // NOI18N
         saveButton.setName("saveButton"); // NOI18N
 
         newButton.setAction(actionMap.get("newAction")); // NOI18N
+        newButton.setMnemonic('N');
         newButton.setText(resourceMap.getString("newButton.text")); // NOI18N
+        newButton.setToolTipText(resourceMap.getString("newButton.toolTipText")); // NOI18N
         newButton.setName("newButton"); // NOI18N
 
         creditDebitCheckBox.setSelected(true);
