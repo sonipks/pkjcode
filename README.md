@@ -1,21 +1,20 @@
-## pkjcode (Pankaj Java code samples repository)
+###### pkjcode (Pankaj Java code samples repository)
 
 This contains sample java applications to show modules related to java technology
 
 ### check out sources
 `git clone git://github.com/sonipks/pkjcode.git`
 
-1) csvtodb
-Brief: 
+## 1) csvtodb
 Write to DB after reading from csv.
 
 This example reads student information from student.csv file in the classpath and inserts the data in the MySql database after skipping the 1st line i.e. heading
 
-2) INM (Incident Management System)
+## 2) INM (Incident Management System)
 
 This can be used for incident management. It is created using spring roo
 
-3) gms (Ghar Management System)
+## 3) gms (Ghar Management System)
 
 For keeping basic finance records for personal use.
 
