@@ -17,6 +17,9 @@ This can be used for incident management. It is created using spring roo
 ## 3) gms (Ghar Management System)
 
 For keeping basic finance records for personal use.
+This is a standalone, java based, database driven desktop application. Main purpose of this application is to just learn and implement the basic java platform things.
+Libraries used: Spring Framework 3.2 Hibernate JPA Swing application framework DateChooser JFreechart
+Database: MySQL 5 IDE: Netbeans 6.5
 
 
 ## Staying in touch
