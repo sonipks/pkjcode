@@ -11,7 +11,7 @@ This example reads student information from student.csv file in the classpath an
   
 	<properties>
 		<jdk.version>1.6</jdk.version>
-		<spring.version>5.3.3</spring.version>
+		<spring.version>5.3.14</spring.version>
 		<spring.batch.version>2.2.0.RELEASE</spring.batch.version>
 		<mysql.driver.version>5.1.25</mysql.driver.version>
 	</properties>
